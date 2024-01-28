@@ -2,8 +2,8 @@ import fs from 'fs/promises';
 import { existsSync } from 'fs';
 
 const rename = async () => {
-    const src = 'src/fs/files/wrongFilename.txt';
-    const dst = 'src/fs/files/properFilename.md';
+    const src = new URL('files/wrongFilename.txt', import.meta.url);
+    const dst = new URL('files/properFilename.md', import.meta.url);
     try {
         if (!existsSync(src)) {
             throw null;

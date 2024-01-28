@@ -2,7 +2,7 @@ import fs from 'fs/promises';
 import { existsSync } from 'fs';
 
 const read = async () => {
-    const src = 'src/fs/files/fileToRead.txt';
+    const src = new URL('files/fileToRead.txt', import.meta.url);
     try {
         if (!existsSync(src)) {
             throw null;

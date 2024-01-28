@@ -2,7 +2,7 @@ import fs from 'fs/promises';
 import { existsSync } from 'fs';
 
 const remove = async () => {
-    const src = 'src/fs/files/fileToRemove.txt';
+    const src = new URL('files/fileToRemove.txt', import.meta.url);
     try {
         if (!existsSync(src)) {
             throw null;

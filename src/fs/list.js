@@ -2,7 +2,7 @@ import fs from 'fs/promises';
 import { existsSync } from 'fs';
 
 const list = async () => {
-    const src = 'src/fs/files';
+    const src = new URL('files', import.meta.url);
     try {
         if (!existsSync(src)) {
             throw null;

@@ -4,10 +4,8 @@ import { pipeline } from 'stream/promises';
 
 const calculateHash = async () => {
     const hash = createHash('sha256');
-    await pipeline(
-        createReadStream('src/hash/files/fileToCalculateHashFor.txt'),
-        hash
-    );
+    const src = new URL('files/fileToCalculateHashFor.txt', import.meta.url);
+    await pipeline(createReadStream(src), hash);
     const digestedHash = hash.digest('hex');
 
     console.log(digestedHash);

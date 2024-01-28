@@ -3,7 +3,8 @@ import { cpus } from 'os';
 
 const inWorkerNthFibonacci = async (n) => {
     return new Promise((resolve, reject) => {
-        const worker = new Worker('./src/wt/worker.js', { workerData: n });
+        const workerUrl = new URL('worker.js', import.meta.url);
+        const worker = new Worker(workerUrl, { workerData: n });
         worker.on('message', resolve);
         worker.on('error', reject);
     });

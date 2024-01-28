@@ -3,7 +3,7 @@ import { createReadStream, createWriteStream } from 'fs';
 import { pipeline } from 'stream/promises';
 
 const compress = async () => {
-    const src = 'src/zip/files/fileToCompress.txt';
+    const src = new URL('files/fileToCompress.txt', import.meta.url);
     const readStream = createReadStream(src);
     const writeStream = createWriteStream(src + '.gz');
     await pipeline(readStream, createGzip(), writeStream);

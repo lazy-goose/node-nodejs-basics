@@ -2,7 +2,7 @@ import fs from 'fs/promises';
 import { existsSync } from 'fs';
 
 const create = async () => {
-    const src = 'src/fs/files/fresh.txt';
+    const src = new URL('files/fresh.txt', import.meta.url);
     const content = 'I am fresh and young';
     try {
         if (existsSync(src)) {
