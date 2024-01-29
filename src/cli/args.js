@@ -1,25 +1,25 @@
 const parseArgs = () => {
     const [execPath, filePath, ...cmdArgs] = process.argv;
 
-    const args = {};
+    const args = new Map();
 
-    let argName = '';
-    let argVals = [];
+    let arg = '';
+    let val = [];
+    let i = cmdArgs.length;
 
-    for (let i = 0; i < cmdArgs.length; i++) {
-        if (cmdArgs[i].startsWith('-')) {
-            // Append defined argument
-            if (argName) {
-                args[argName] = argVals;
-            }
-            argName = cmdArgs[i];
-            argVals = [];
+    while (--i >= 0) {
+        arg = cmdArgs[i];
+
+        if (arg.startsWith('-')) {
+            args.set(arg, val);
+            val = [];
         } else {
-            argVals = [...argVals, cmdArgs[i]];
+            val = [...val, arg];
         }
     }
 
-    const argsString = Object.entries(args)
+    const argsString = [...args]
+        .reverse()
         .map(([name, values]) => [name.replace(/^--?/, ''), values])
         .map(([name, values]) => {
             if (values.length > 1) {
