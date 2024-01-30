@@ -1,8 +1,17 @@
-// n should be received from main thread
-const nthFibonacci = (n) => n < 2 ? n : nthFibonacci(n - 1) + nthFibonacci(n - 2);
+import { parentPort, workerData } from 'worker_threads';
+
+const nthFibonacci = (n) =>
+    n < 2 ? n : nthFibonacci(n - 1) + nthFibonacci(n - 2);
 
 const sendResult = () => {
-    // This function sends result of nthFibonacci computations to main thread
+    if (Number.isInteger(workerData)) {
+        const result = nthFibonacci(workerData);
+        parentPort.postMessage(result);
+    } else {
+        throw new Error(
+            `Worker expected an integer number, but got: ${workerData}`
+        );
+    }
 };
 
 sendResult();
